@@ -19,9 +19,12 @@ export default function LoginPage(){
                 email: email,
                 password: password,
             });
-            console.log(res)
+            
+            console.log(res.data.token)
 
             localStorage.setItem("token", res.data.token);
+
+            console.log()
 
             if(res.data.role== "admin"){
                 //window.location.href = "/admin";

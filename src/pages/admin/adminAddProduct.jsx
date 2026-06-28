@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import uploadFile from "../../utils/mediaUpload";
 
 export default function AdminAddProductPage() {
-
     const [productID, setProductID] = useState("");
     const [name, setName] = useState("");
     const [altNames, setAltNames] = useState("");
@@ -22,6 +21,7 @@ export default function AdminAddProductPage() {
     const navigate = useNavigate()
 
     async function addProduct() {
+
         const token = localStorage.getItem("token");
         if (token == null) {
             toast.error("You must be logged in as admin to add products.");
@@ -33,7 +33,7 @@ export default function AdminAddProductPage() {
         const imagePromises = []
 
 
-
+        //10
         for (let i = 0; i < files.length; i++) {
 
             const promise = uploadFile(files[i])
@@ -55,7 +55,6 @@ export default function AdminAddProductPage() {
 
         try {
             const altNamesInArray = altNames.split(",")
-
             await axios.post(import.meta.env.VITE_BACKEND_URL + "/products/", {
                 productID: productID,
                 name: name,
@@ -81,24 +80,29 @@ export default function AdminAddProductPage() {
             toast.error("Error adding product. Please try again.");
             console.log("Error adding product:");
             console.log(err);
-
         }
-
     }
 
     return (
-        <div className="w-full h-full flex justify-center p-[50px]">
-            <div className="w-[800px] bg-accent/80 rounded-2xl p-[40px] overflow-y-visible">
+        <div className="w-full flex justify-center p-[50px]">
+            <div className=" bg-accent/80 rounded-2xl p-[40px] w-[800px] shadow-2xl overflow-y-visible">
                 <h1 className="w-full text-xl text-primary mb-[20px] flex items-center gap-[5px]"><AiOutlineProduct /> Add New Product</h1>
                 <div className="w-full bg-white p-[20px] flex flex-row flex-wrap justify-between rounded-xl shadow-2xl">
+
                     <div className="my-[10px] w-[40%]">
                         <label>Product ID</label>
-                        <input type="text" value={productID} onChange={(e) => { setProductID(e.target.value) }} className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring focus:ring-accent border border-accent shadow-2xl px-[20px]" />
+                        <input
+                            type="text"
+                            value={productID}
+                            onChange={(e) => {
+                                setProductID(e.target.value);
+                            }}
+                            className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"
+                        />
                         <p className="text-sm text-gray-500 w-full text-right">
                             Provide a unique product ID
                         </p>
                     </div>
-
                     <div className="my-[10px] w-[40%]">
                         <label>Name</label>
                         <input
@@ -109,10 +113,7 @@ export default function AdminAddProductPage() {
                             }}
                             className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"
                         />
-
-
                     </div>
-
                     <div className="my-[10px] w-full">
                         <label>Alternative Names</label>
                         <input
@@ -137,7 +138,6 @@ export default function AdminAddProductPage() {
                             className="w-full h-[100px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px] py-[10px]"
                         />
                     </div>
-
                     <div className="my-[10px] w-[40%]">
                         <label>Price</label>
                         <input
@@ -149,7 +149,6 @@ export default function AdminAddProductPage() {
                             className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"
                         />
                     </div>
-
                     <div className="my-[10px] w-[40%]">
                         <label>Labelled Price</label>
                         <input
@@ -172,9 +171,7 @@ export default function AdminAddProductPage() {
                             }}
                             className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"
                         />
-
                     </div>
-
                     <div className="my-[10px] flex flex-col w-[30%]">
                         <label>Category</label>
                         <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]">
@@ -195,7 +192,6 @@ export default function AdminAddProductPage() {
                             <option value="Others">Others</option>
                         </select>
                     </div>
-
                     <div className="my-[10px] w-[30%]">
                         <label>Brand</label>
                         <input
@@ -207,7 +203,6 @@ export default function AdminAddProductPage() {
                             className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"
                         />
                     </div>
-
                     <div className="my-[10px] w-[30%]">
                         <label>Model</label>
                         <input
@@ -219,7 +214,6 @@ export default function AdminAddProductPage() {
                             className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"
                         />
                     </div>
-
                     <div className="my-[10px] w-[40%]">
                         <label>Stock</label>
                         <input
@@ -231,7 +225,6 @@ export default function AdminAddProductPage() {
                             className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]"
                         />
                     </div>
-
                     <div className="my-[10px] flex flex-col items-center  w-[40%]">
                         <label>Available</label>
                         <select value={isAvailable} onChange={(e) => setIsAvailable(e.target.value)} className="w-full h-[40px] rounded-2xl focus:outline-none focus:ring-2 focus:ring-accent border border-accent shadow-2xl px-[20px]">
@@ -239,21 +232,16 @@ export default function AdminAddProductPage() {
                             <option value={false}>No</option>
                         </select>
                     </div>
-
                     <Link to="/admin/products" className="w-[49%] h-[50px] bg-red-500 text-white font-bold  rounded-2xl flex justify-center items-center hover:bg-red-700 border-[2px]  mt-[20px]">
                         Cancel
                     </Link>
-
                     <button onClick={addProduct} className="w-[49%] h-[50px] bg-accent text-white font-bold  rounded-2xl hover:bg-transparent hover:text-accent border-[2px] border-accent mt-[20px]">
                         Add Product
                     </button>
 
 
-
-
                 </div>
             </div>
-
         </div>
-    )
+    );
 }
